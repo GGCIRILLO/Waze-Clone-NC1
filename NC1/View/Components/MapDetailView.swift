@@ -15,10 +15,6 @@ struct MapDetailView: View {
     @Binding var bottomSheet : Bool
     @Binding var getDirections : Bool
     
-    //@EnvironmentObject var locationManager : LocationManager
-
-    
-    
     var body: some View {
         VStack {
     
@@ -38,12 +34,12 @@ struct MapDetailView: View {
                 Button(action: {
                     show.toggle()
                     bottomSheet.toggle()
-                    getDirections = false
                 }, label: {
                     Image(systemName: "xmark.circle.fill")
                         .resizable()
                         .frame(width:30, height: 30)
                 })
+                .accessibilityLabel("Close place detail")
                 
             }
             if let scene = lookAroundScene {
@@ -51,14 +47,17 @@ struct MapDetailView: View {
                     .frame(height: 200)
                     .cornerRadius(12)
                     .padding()
+                    .accessibilityHidden(true)
             } else {
                 ContentUnavailableView("No Preview Available", systemImage: "eye.slash")
+                    .accessibilityHidden(true)
             }
             
             Button("Get directions") {
                 getDirections.toggle()
                 
             }
+            .accessibilityHint("Show the route to this place")
             .foregroundStyle(.white)
             .frame(maxWidth: .infinity)
             .padding(.vertical, 12)

@@ -48,8 +48,10 @@ struct MyPlaceView: View {
             }
             Spacer()
         }
+        .accessibilityElement(children: .combine)
         .accessibilityAddTraits(.isButton)
-        .accessibilityHint("Go to " + mylocation.name)
+        .accessibilityLabel(mylocation.name)
+        .accessibilityHint("Highlights " + mylocation.name)
     }
 }
 

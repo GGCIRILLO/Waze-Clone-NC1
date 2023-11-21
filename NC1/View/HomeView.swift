@@ -14,9 +14,7 @@ struct HomeView: View {
     
     @State var returnedPlace = PlaceModel(mapItem: MKMapItem())
     @State private var searchResults : [MKMapItem] = []
-    
-    @State var selectedPlace : PlaceModel?
-    
+        
     @State private var showNavigation = false
     @State private var bottomSheet = true
     
@@ -33,7 +31,7 @@ struct HomeView: View {
         NavigationView{
             
             mapView
-
+                .accessibilityLabel("Map")
                 .ignoresSafeArea()
                 .mapControlVisibility(.visible)
                 .sheet(isPresented: $bottomSheet, onDismiss: .none, content: {
@@ -68,7 +66,6 @@ struct HomeView: View {
                     //if the new value of selected is not nil we show the details
                     viewModel.showDetails = newValue != nil
                     
-                    // try this code
                     if viewModel.selected == nil {
                         bottomSheet = true
                     } else {
@@ -81,7 +78,7 @@ struct HomeView: View {
                         .presentationBackgroundInteraction(.enabled(upThrough: .medium))
                         .interactiveDismissDisabled()
                         .presentationCornerRadius(30)
-                        //.environmentObject(LocationManager())
+                        .accessibilityAddTraits(.isModal)
                 }
                 .onChange(of: getDirections) { oldValue, newValue in
                     if newValue {
@@ -99,8 +96,7 @@ struct HomeView: View {
             ForEach(searchResults, id: \.self){ result in
                 if viewModel.routeDisplaying {
                     if result == viewModel.routeDestination {
-                        let placemark = result.placemark
-                        Marker(placemark.name ?? "", coordinate: placemark.coordinate)
+                       Marker(item: result)
                     }
                 } else {
                     Marker(item: result)
@@ -150,6 +146,7 @@ struct HomeView: View {
                         .background(Circle())
                         .foregroundStyle(.white)
                 }
+                .accessibilityLabel("Remove selection and route displaying")
             }
         }
         .offset(y: !showNavigation ? CGFloat(-UIScreen.main.bounds.height)/3.8 : CGFloat(-UIScreen.main.bounds.height)/2)

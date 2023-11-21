@@ -57,6 +57,7 @@ struct SearchActivationView: View {
                                 }
                             }
                         })
+                        .accessibilityHint("Open the search view")
                     }
 
                     Section {

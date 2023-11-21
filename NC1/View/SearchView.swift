@@ -76,6 +76,9 @@ struct SearchView: View {
                             }, label: {
                                 FilterView(poi: poi)
                             })
+                            .accessibilityAddTraits(.isButton)
+                            .accessibilityHint("Search for" + poi.name + " around you")
+                            
                         }
                         
                     }
@@ -94,8 +97,6 @@ struct SearchView: View {
                                 MyPlaceView(mylocation: place)
                                 Spacer()
                             })
-                            .accessibilityAddTraits(.isButton)
-                            .accessibilityHint("Search for" + place.name + " around you")
                         }
                         .padding()
                     }
@@ -112,13 +113,13 @@ struct SearchView: View {
                                 .fontWeight(.regular)
                                 .foregroundStyle(.primary)
                         }
+                        .accessibilityElement(children: .combine)
                         .onTapGesture(perform: {
                             withAnimation(.easeInOut(duration: 0.3)) {
                                 searchResults.append(MKMapItem(placemark: place.requiredPlacemark))
                                 bottomSheet = true
                                 showNavigation = false
                             }
-                            
                         })
                     }
                     .listStyle(.plain)
