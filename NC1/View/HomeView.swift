@@ -137,6 +137,7 @@ struct HomeView: View {
                     searchResults.removeAll(keepingCapacity: false)
                     viewModel.showDetails = false
                     viewModel.route = nil
+                    viewModel.routeDisplaying = false
                 } label: {
                     Image(systemName: "xmark")
                         .resizable()
