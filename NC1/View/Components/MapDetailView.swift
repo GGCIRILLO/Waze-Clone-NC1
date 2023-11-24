@@ -55,7 +55,8 @@ struct MapDetailView: View {
             
             Button("Get directions") {
                 getDirections.toggle()
-                
+                show.toggle()
+                bottomSheet.toggle()
             }
             .accessibilityHint("Show the route to this place")
             .foregroundStyle(.white)
